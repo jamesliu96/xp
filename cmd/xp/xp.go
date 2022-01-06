@@ -26,8 +26,7 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-		fmt.Printf("%-4s %s\n", "priv", hex.EncodeToString(priv))
-		fmt.Printf("%-4s %s\n", "pub", hex.EncodeToString(pub))
+		fmt.Printf("%-4s %s\n%-4s %s\n", "priv", hex.EncodeToString(priv), "pub", hex.EncodeToString(pub))
 	} else if directive == x {
 		if len(os.Args) < 4 {
 			usage()
