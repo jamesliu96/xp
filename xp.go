@@ -12,10 +12,13 @@ func P() (private, public []byte, err error) {
 	if err != nil {
 		return
 	}
-	public, err = curve25519.X25519(private, curve25519.Basepoint)
+	public, err = X(private, nil)
 	return
 }
 
 func X(scalar, point []byte) (product []byte, err error) {
+	if point == nil {
+		point = curve25519.Basepoint
+	}
 	return curve25519.X25519(scalar, point)
 }

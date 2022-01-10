@@ -3,16 +3,24 @@ package main
 import (
 	"encoding/hex"
 	"fmt"
+	"math"
 	"os"
 
 	"github.com/jamesliu96/xp"
+)
+
+const app = "xp"
+
+var (
+	gitTag = "*"
+	gitRev = "*"
 )
 
 const p = "p"
 const x = "x"
 
 func usage() {
-	fmt.Fprintf(os.Stderr, "usage: xp %s\n       xp %s <scalar> <point>\n", p, x)
+	fmt.Fprintf(os.Stderr, "%s %s (%s)\nusage: %s %s\n       %s %s <scalar> [point]\n", app, gitTag, gitRev[:int(math.Min(float64(len(gitRev)), 7))], app, p, app, x)
 }
 
 func main() {
@@ -28,17 +36,15 @@ func main() {
 		}
 		fmt.Printf("%-4s %s\n%-4s %s\n", "priv", hex.EncodeToString(priv), "pub", hex.EncodeToString(pub))
 	} else if directive == x {
-		if len(os.Args) < 4 {
-			usage()
-			return
-		}
 		scalar, err := hex.DecodeString(os.Args[2])
 		if err != nil {
 			panic(err)
 		}
-		point, err := hex.DecodeString(os.Args[3])
-		if err != nil {
-			panic(err)
+		var point []byte
+		if len(os.Args) > 3 {
+			if point, err = hex.DecodeString(os.Args[3]); err != nil {
+				panic(err)
+			}
 		}
 		product, err := xp.X(scalar, point)
 		if err != nil {
