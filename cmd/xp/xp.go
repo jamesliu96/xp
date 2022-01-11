@@ -36,6 +36,10 @@ func main() {
 		}
 		fmt.Printf("%-4s %s\n%-4s %s\n", "priv", hex.EncodeToString(priv), "pub", hex.EncodeToString(pub))
 	} else if directive == x {
+		if len(os.Args) < 3 {
+			usage()
+			return
+		}
 		scalar, err := hex.DecodeString(os.Args[2])
 		if err != nil {
 			panic(err)
