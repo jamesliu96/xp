@@ -20,7 +20,7 @@ const p = "p"
 const x = "x"
 
 func usage() {
-	fmt.Fprintf(os.Stderr, "%s %s (%s)\nusage: %s %s\n       %s %s <scalar> [point]\n", app, gitTag, gitRev[:int(math.Min(float64(len(gitRev)), 7))], app, p, app, x)
+	fmt.Fprintf(os.Stderr, "%s %s (%s)\nusage: %s %s                  # pair\n       %s %s <scalar> [point] # mult\n", app, gitTag, gitRev[:int(math.Min(float64(len(gitRev)), 7))], app, p, app, x)
 }
 
 func main() {
