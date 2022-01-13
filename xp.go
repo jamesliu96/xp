@@ -8,10 +8,12 @@ import (
 
 func P() (private, public []byte, err error) {
 	private = make([]byte, curve25519.ScalarSize)
-	_, err = rand.Read(private)
-	if err != nil {
+	if _, err = rand.Read(private); err != nil {
 		return
 	}
+	private[0] &= 248
+	private[31] &= 127
+	private[31] |= 64
 	public, err = X(private, nil)
 	return
 }
