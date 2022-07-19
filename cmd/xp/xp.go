@@ -55,5 +55,7 @@ func main() {
 			panic(err)
 		}
 		fmt.Println(hex.EncodeToString(product))
+	} else {
+		usage()
 	}
 }
